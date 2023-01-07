@@ -203,7 +203,7 @@ function score(){
     } else {
         scoreList = [];
     }
-    return scoreList;
+    return scoreList
 };
 
 function addItem(n){
