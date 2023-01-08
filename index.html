@@ -7,75 +7,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
+
 <body>
   <!-- Main that wraps around the page. Helps to display flex in css -->
   <main class="main">
     <!-- View Highscores -->
-  <header>
-    <div class="top">
-    <button class="highscores" id="view-highscores"> View Highscores</button>
-<!-- Timer -->
-    <p id="timer">Time: 60s </p>
-    </div>
-</header>
-<!--Intro -->
-  <section>
-    <div class="title-layout">
-    <h1 class="title"> JavaScript Quiz!! </h1>
-      <p> Try to answer the following JavaScript questions within the time limit.
-        Keep in mind that incorrect answers will penalize your score/time by ten seconds!
-      </p>
-  <!-- start button -->
-    <button class="start-button"> Start Quiz </button>
-  </div>
-  </section>
-<!-- Questions -->
-  <section class="questions">
+    <header>
+      <div class="top">
+        <button class="highscores" id="view-highscores"> View Highscores</button>
+        <!-- Timer -->
+        <p id="timer">Time: 60s </p>
+      </div>
+    </header>
+    <!--Intro -->
+    <section>
+      <div class="title-layout">
+        <h1 class="title"> JavaScript Quiz!! </h1>
+        <p> Try to answer the following JavaScript questions within the time limit.
+          Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+        </p>
+        <!-- start button -->
+        <button class="start-button"> Start Quiz </button>
+      </div>
+    </section>
+    <!-- Questions -->
+    <section class="questions">
       <div class="ques-section">
-    <h2 class="header"></h2>
-      <ul>
-       <li><button class="option" id="btn1" value="a"></button></li>
-       <li><button class="option" id="btn2" value="b"></button></li>
-       <li><button class="option" id="btn3" value="c"></button></li>
-       <li><button class="option" id="btn4" value="d"></button></li>
-      </ul>
-     </div>
-<!-- Answer check -->
-    <div class="check">
-    </div>
- </section>
-<!-- Final score review -->
-  <section class="final-score">
+        <h2 class="header"></h2>
+        <ul>
+          <li><button class="option" id="btn1" value="a"></button></li>
+          <li><button class="option" id="btn2" value="b"></button></li>
+          <li><button class="option" id="btn3" value="c"></button></li>
+          <li><button class="option" id="btn4" value="d"></button></li>
+        </ul>
+      </div>
+      <!-- Answer check -->
+      <div class="check">
+      </div>
+    </section>
+    <!-- Final score review -->
+    <section class="final-score">
       <h1 id="finish">
         All done!
       </h1>
-<!-- Need to find a way to change the score according to what the user recieved -->
-    <div class="initials-submit"></div>
+      <!-- Need to find a way to change the score according to what the user recieved -->
       <p>
-      You final score is <span id="score"></span>
-    </p>
-    <!-- Input initials -->
- 
-      <p>Enter initials: 
-         <input id="initials">
-         <button class="submit">Submit</button>
+        You final score is <span id="score"></span>
       </p>
-    </div>
-  </section>
-  <!-- highscores page -->
-  <section class="high-scores">
+      <!-- Input initials -->
+
+      <p>Enter initials:
+        <input id="initials">
+        <button class="submit">Submit</button>
+      </p>
+      </div>
+    </section>
+    <!-- highscores page -->
+    <section class="high-scores">
       <h1>
         High scores
       </h1>
       <ol id="userscores"></ol>
-  <!-- Go back and clear buttons -->
-    <div class="buttons">
-      <button id="go-back">Go back</button>
-      <button id="clear">Clear high scores</button>
-    </div>
-  </section>
+      <!-- Go back and clear buttons -->
+      <div class="buttons">
+        <button id="go-back">Go back</button>
+        <button id="clear">Clear high scores</button>
+      </div>
+    </section>
   </main>
   <!-- js script that will run the file as expected -->
-    <script src= "./assets/js/script.js"></script>
-  </body>
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>

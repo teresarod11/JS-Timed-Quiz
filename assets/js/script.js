@@ -11,8 +11,6 @@
 // THEN I can save my initials and my score
 
 // Defining variables that I will later use
-var timerCount = 75;
-var quizTimer;
 
 var title = document.querySelector('.title-layout');
 var highScores = document.querySelector('#view-highscores');
@@ -33,7 +31,6 @@ var finalPage = document.querySelector('.final-score');
 var end = document.querySelector('#finish');
 var finalScore = document.querySelector('#score');
 var enterInitials = document.querySelector('#initials');
-var init = document.querySelector('.initials-submit');
 var submitBtn = document.querySelector('.submit');
 var highScoresPage = document.querySelector('.high-scores');
 
@@ -50,91 +47,99 @@ var timeInterval;
 var quesCount = 1;
 
 // list of questions
-var listOfQuestions = [ 
-{
-    question: "What does && mean?",
-    options: ['a. or', 'b. and', 'c. else', 'd. if'],
-    correctOption: 'b',
-},
+var listOfQuestions = [
+    {
+        question: "What does && mean?",
+        options: ['a. or', 'b. and', 'c. else', 'd. if'],
+        correctOption: 'b',
+    },
 
-{
-    question: "Inside which HTML element do we put the JavaScript in?",
-    options: ['a. js', 'b. html', 'c. scripting', 'd. script'],
-    correctOption: 'd',
-},
+    {
+        question: "Inside which HTML element do we put the JavaScript in?",
+        options: ['a. js', 'b. html', 'c. scripting', 'd. script'],
+        correctOption: 'd',
+    },
 
-{
-    question: "Where is the correct place to put the JS in?",
-    options: ['a. In the body', 'b. In the head', 'c. Both in head and body', 'd. In the title'],
-    correctOption: 'b',
-},
+    {
+        question: "Where is the correct place to put the JS in?",
+        options: ['a. In the body', 'b. In the head', 'c. Both in head and body', 'd. In the title'],
+        correctOption: 'b',
+    },
 
-{
-    question: " How do you write 'hello!' as an alert?",
-    options: ['a. alertbox("hello!");', 'b. warning("hello!");', 'c. alert("hello!");', 'd. msg("hello!");'],
-    correctOption: 'c',
-},
+    {
+        question: " How do you write 'hello!' as an alert?",
+        options: ['a. alertbox("hello!");', 'b. warning("hello!");', 'c. alert("hello!");', 'd. msg("hello!");'],
+        correctOption: 'c',
+    },
 
-{
-    question: " What does || mean in JS?",
-    options: ['a. and', 'b. nothing', 'c. or', 'd. else'],
-    correctOption: 'c',
-}
+    {
+        question: " What does || mean in JS?",
+        options: ['a. and', 'b. nothing', 'c. or', 'd. else'],
+        correctOption: 'c',
+    }
 ];
 
 // Event listeners
-startBtn.addEventListener('click', startQuiz);
 
-ans.forEach(function(click){
+// event listener for the start quiz button
+startBtn.addEventListener('click', startQuiz);
+// a click function is applied to each of the answer buttons
+ans.forEach(function (click) {
     click.addEventListener('click', answersCorrectOrWrong);
 });
-
-highScores.addEventListener('click', function(event){
+// event listener for the view highscores button 
+highScores.addEventListener('click', function (event) {
     event.preventDefault();
-    title.style.display = "none"; 
+    title.style.display = "none";
     highScoresPage.style.display = 'block';
-    title.style.display = "none"; 
-    questionsEl.style.display ="none";
+    title.style.display = "none";
+    questionsEl.style.display = "none";
     finalPage.style.display = 'none';
     t.style.display = 'none';
 });
 
-
-submitBtn.addEventListener('click', function(event){
+// event listener for the submit initials button 
+submitBtn.addEventListener('click', function (event) {
     event.preventDefault();
-    title.style.display = "none"; 
+    title.style.display = "none";
     highScoresPage.style.display = 'block';
-    title.style.display = "none"; 
-    questionsEl.style.display ="none";
+    title.style.display = "none";
+    questionsEl.style.display = "none";
     finalPage.style.display = 'none';
     t.style.display = 'none';
+    // initials stored into the store score funtions
+    storeScores();
 });
-
-goBack.addEventListener('click', function(event){
+// event listener for the go back button 
+goBack.addEventListener('click', function (event) {
     event.preventDefault();
     title.style.display = "block";
     t.style.display = 'block';
     enterInitials.style.display = 'none';
     highScoresPage.style.display = 'none';
     finalPage.style.display = 'none';
-    questionsEl.style.display ="none";
+    questionsEl.style.display = "none";
+    secsLeft = 60;
+    timeLeft.textContent = "Time:" + secsLeft + "s";
+    scores.innerHTML='';
 });
-
-clearBtn.addEventListener('click', function(event){
+// event listener for the clear button 
+clearBtn.addEventListener('click', function (event) {
     event.preventDefault();
     localStorage.clear();
+    console.log(localStorage)
     scoreBoard();
 });
-
-function startQuiz(){
-     title.style.display = "none"; 
-     enterInitials.style.display = 'none';
+// function that once the start 
+function startQuiz() {
+    title.style.display = "none";
+    enterInitials.style.display = 'none';
     highScoresPage.style.display = 'none';
     highScores.style.display = 'none';
     finalPage.style.display = 'none';
-     questionsEl.style.display ="block";
-     quesNum = 0;
-     runTimer();
+    questionsEl.style.display = "block";
+    quesNum = 0;
+    runTimer();
     displayQuestions(quesNum);
 };
 
@@ -146,24 +151,24 @@ function displayQuestions(n) {
     op3.textContent = listOfQuestions[n].options[2];
     op4.textContent = listOfQuestions[n].options[3];
     quesNum = n;
-  };
+};
 
 // Starts the timer when the quiz starts
 function runTimer() {
-    timeInterval = setInterval(function(){
+    timeInterval = setInterval(function () {
         secsLeft--;
-        timeLeft.textContent = "Time:" + secsLeft;
-// time stops when there is no time left and when done
-        if (secsLeft === 0 || quesNum >= listOfQuestions.length) {
+        timeLeft.textContent = "Time:" + secsLeft +"s";
+        // time stops when there is no time left and when done
+        if (secsLeft <= 0 || quesNum >= listOfQuestions.length) {
             clearInterval(timeInterval);
-           end.textContent = "Time's up";
-           gameOver();
+            end.textContent = "Time's up";
+            gameOver();
         }
     }, 1000);
 };
 
 // shows if the answer that the user chose is correct or wrong
-function answersCorrectOrWrong (event){
+function answersCorrectOrWrong(event) {
     event.preventDefault();
     ansCheck.style.display = "block";
     setTimeout(function () {
@@ -176,72 +181,70 @@ function answersCorrectOrWrong (event){
         secsLeft = secsLeft - 10;
         ansCheck.textContent = 'Wrong!';
     }
-    if (quesNum < listOfQuestions.length -1 ) {
-        displayQuestions(quesNum +1);
+    if (quesNum < listOfQuestions.length - 1) {
+        displayQuestions(quesNum + 1);
     } else {
         gameOver();
     }
-    quesCount++;
-}; 
-
-function gameOver(){
+};
+// once the quiz is over, the final page with the users score and to enter initials is displayed
+function gameOver() {
     questionsEl.style.display = 'none';
     finalPage.style.display = 'block';
     enterInitials.style.display = 'block';
     highScores.style.display = 'block';
     highScoresPage.style.display = 'none';
-console.log(finalPage);
-    finalScore.textContent =  + fnlScore;
+    console.log(finalPage);
+    finalScore.textContent = + fnlScore;
     clearTimeout(timeInterval);
 };
-
-function score(){
+// the users scores are stored in the local storage using this function 
+function score() {
     var getScore = localStorage.getItem("Score");
     if (getScore !== null) {
         scoreList = JSON.parse(getScore);
         return scoreList;
     } else {
-        scoreList = [];
+        fnlScore = 0;
     }
-    return scoreList
+    return scoreList;
+};
+// this function will add any new scores to the array of scores
+function addItem(n) {
+    var add = JSON.parse(localStorage.getItem("hs")) || [];
+    if (add.length === 0) {
+        var add_array = [];
+        add_array.push(n);
+        localStorage.setItem('hs', JSON.stringify(add_array));
+
+    } else {
+        add.push(n);
+        localStorage.setItem('hs',JSON.stringify(add));
+    }
+};
+// stores scores and initials 
+function storeScores() {
+    var storeItems = {
+        user: enterInitials.value,
+        score: fnlScore
+    }
+    addItem(storeItems);
+    scoreBoard();
 };
 
-function addItem(n){
-    var add = scoreBoard();
-    add.push(n);
-    localStorage.addItem('list', JSON.stringify(add));
-};
-
-function storeScores(){
-   var storeItems = {
-    user: enterInitials.value,
-    score: fnlScore
-   }
-   addItem(storeItems);
-   scoreBoard();
-};
-
-
-function scoreBoard(){
+// displays the scores and initials onto the page of Highscores
+function scoreBoard() {
     var hs = JSON.parse(localStorage.getItem("hs")) || [];
-    hs = sort(hs, 'score');
+    scores.innerHTML='';
     for (var i = 0; i < hs.length; i++) {
-        console.log(hs[i].secsLeft);
         var user = document.createElement("li");
-        var context = document.createTextNode(hs[i].enterInitials + " - " + hs[i].secsLeft);
+        var context = document.createTextNode(hs[i].user + " - " + hs[i].score);
         user.appendChild(context);
-        highScores.appendChild(user);
+        scores.appendChild(user);
     }
-
-    function sort(array,key){
-    return array.sort(function(a,b){
-        if( a.secsLeft < b.secsLeft){
-            return 1;
-        }
-        return -1;
-    });
-}
+    if (hs.length===0){
+        scores.innerHTML='';
+    }
 };
-
 
 
